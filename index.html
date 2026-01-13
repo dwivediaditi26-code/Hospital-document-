@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hospital Documentation System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.section {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 6px;
+  margin: 4px 0;
+}
+
+button {
+  padding: 8px 12px;
+  margin: 5px;
+}
+
+/* PRINT FIX */
+@media print {
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area { page-break-after: always; }
+}
+</style>
+</head>
+
+<body>
+
+<h2>Hospital Documentation System</h2>
+
+<div>
+  <button onclick="printAllPatientReports()">Print Complete Patient File</button>
+  <button onclick="printSingleReport('progress')">Print Progress</button>
+  <button onclick="printSingleReport('vitals')">Print Vitals</button>
+</div>
+
+<div class="section">
+  <h3>Patient Details</h3>
+  Name <input>
+  Age / Sex <input>
+  UHID <input>
+  Ward / Bed <input>
+  Diagnosis <textarea></textarea>
+</div>
+
+<div class="section print-area" data-section="progress">
+  <h3>Progress Notes</h3>
+  Subjective <textarea></textarea>
+  Objective <textarea></textarea>
+  Assessment <textarea></textarea>
+  Plan <textarea></textarea>
+</div>
+
+<div class="section print-area" data-section="vitals">
+  <h3>Vitals</h3>
+  BP <input>
+  HR <input>
+  RR <input>
+  SpO₂ <input>
+</div>
+
+<div class="section print-area" data-section="medication">
+  <h3>Medication</h3>
+  Drug <input>
+  Dose <input>
+  Route <input>
+  Frequency <input>
+</div>
+
+<div class="section print-area" data-section="icu">
+  <h3>ICU Notes</h3>
+  <textarea></textarea>
+</div>
+
+<div class="section print-area" data-section="emergency">
+  <h3>Emergency Notes</h3>
+  <textarea></textarea>
+</div>
+
+<script>
+function printSingleReport(section) {
+  document.querySelectorAll('.print-area').forEach(el => {
+    el.style.display =
+      el.dataset.section === section ? 'block' : 'none';
+  });
+  window.print();
+}
+
+function printAllPatientReports() {
+  document.querySelectorAll('.print-area').forEach(el => {
+    el.style.display = 'block';
+  });
+  window.print();
+}
+</script>
+
+</body>
+  </html>
